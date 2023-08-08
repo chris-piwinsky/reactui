@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-
+import { InputText } from 'primereact/inputtext';
+import { Paginator } from 'primereact/paginator';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-
 
 function HomePage() {
     const [tableData, setTableData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
     useEffect(() => {
         // Fetch data from the API
@@ -46,9 +47,25 @@ function HomePage() {
                 </Link>
             ),
         },
+        { field: 'last_name', header: 'Last Name' },
         { field: 'email', header: 'Email' },
         // Add more columns as needed
     ];
+
+    const totalItems = filteredData.length;
+
+    const onPageChange = (event) => {
+        setCurrentPage(event.page + 1);
+    };
+
+    const handleResetSearch = () => {
+        setSearchTerm('');
+    };
+
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedData = filteredData.slice(startIndex, endIndex);
 
     return (
         <div className="main-content">
@@ -63,8 +80,24 @@ function HomePage() {
                         onChange={e => setSearchTerm(e.target.value)}
                     />
                 </span>
+                <span>
+                    <Paginator
+                        first={startIndex}
+                        rows={itemsPerPage}
+                        totalRecords={totalItems}
+                        onPageChange={onPageChange}
+                    />
+                </span>
+                <span>
+                    <Button
+                        icon="pi pi-refresh"
+                        className="p-button-text"
+                        onClick={handleResetSearch}
+                    />
+                </span>
             </div>
-            <DataTable value={filteredData}>
+
+            <DataTable value={displayedData}>
                 {columns.map(column => (
                     <Column key={column.field} field={column.field} header={column.header} body={column.body} />
                 ))}
@@ -74,4 +107,3 @@ function HomePage() {
 }
 
 export default HomePage;
-
