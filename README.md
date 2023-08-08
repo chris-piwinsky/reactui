@@ -9,8 +9,6 @@ Welcome to the React UI Project! This project is a user interface built using Re
   - [Installation](#installation)
 - [Usage](#usage)
 - [Folder Structure](#folder-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Getting Started
 
@@ -45,3 +43,23 @@ Before you begin, ensure you have the following software installed:
 2. Open your browser and visit http://localhost:3000 to see the UI in action.
 
 3. Explore the user details, charts, and filtering functionality.
+
+### Folder Structure
+react-ui-project/
+  ├── public/
+  │   └── index.html
+  ├── src/
+  │   ├── components/
+  │   │   ├── AddressTable.js
+  │   │   ├── DetailsTable.js
+  │   │   ├── LineChartComponent.js
+  │   │   ├── Sidebar.js
+  │   │   ├── UserDetails.js
+  │   │   └── ... (other components)
+  │   ├── styles.css
+  │   ├── App.js
+  │   └── index.js
+  ├── .gitignore
+  ├── package.json
+  ├── README.md
+  └── ... (other configuration files)
