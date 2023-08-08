@@ -1,29 +1,22 @@
-// src/components/AddressTable.js
 import React from 'react';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
 
 function AddressTable({ address }) {
-  return (
-    <table className="address-table">
-      <tbody>
-        <tr>
-          <td>Street:</td>
-          <td>{address.street_name}</td>
-        </tr>
-        <tr>
-          <td>City:</td>
-          <td>{address.city}</td>
-        </tr>
-        <tr>
-          <td>State:</td>
-          <td>{address.state}</td>
-        </tr>
-        <tr>
-          <td>Zip:</td>
-          <td>{address.zip_code}</td>
-        </tr>
-      </tbody>
-    </table>
-  );
+    const addressColumns = [
+        { field: 'street_name', header: 'Street' },
+        { field: 'city', header: 'City' },
+        { field: 'state', header: 'State' },
+        { field: 'zip_code', header: 'Zip' },
+    ];
+
+    return (
+        <DataTable value={[address]}>
+            {addressColumns.map(column => (
+                <Column key={column.field} field={column.field} header={column.header} frozen />
+            ))}
+        </DataTable>
+    );
 }
 
 export default AddressTable;
