@@ -169,4 +169,8 @@ body {
   flex-grow: 1;
 }
 
-/* ... (your existing styles) */
+.pie-chart-container {
+  width: 33%; /* Set the desired width */
+  display: inline-block;
+  margin-right: 1rem; /* Add spacing between elements */
+}

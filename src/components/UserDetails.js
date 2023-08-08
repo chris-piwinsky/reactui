@@ -1,26 +1,20 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Button } from 'primereact/button';
-import { Dropdown } from 'primereact/dropdown';
 import AddressTable from './AddressTable';
 import EmploymentTable from './EmploymentTable';
 import LineChartComponent from './LineChart';
+import PieChart from './Piechart';
 import '../styles.css';
 
 function UserDetails() {
     const location = useLocation();
     const user = location.state.user;
     const [activeTab, setActiveTab] = useState('address'); // Set the default tab to 'address'
-    const [selectedChart, setSelectedChart] = useState('Line Chart 1');
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
-
-    const chartSelectOptions = [
-        { label: 'Line Chart 1', value: 'Line Chart 1' },
-        { label: 'Line Chart 2', value: 'Line Chart 2' },
-    ];
 
     return (
         <div className="user-details">
@@ -38,22 +32,21 @@ function UserDetails() {
                     onClick={() => handleTabClick('employment')}
                 />
             </div>
-            {/* Removed "User Details" tab/content */}
             {activeTab === 'address' && (
                 <div className="user-tab">
                     <AddressTable address={user.address} />
+                    <div className="line-chart">
+                        <h3>Line Chart</h3>
+                        <LineChartComponent />
+                    </div>
                 </div>
             )}
             {activeTab === 'employment' && (
                 <div className="user-tab">
                     <EmploymentTable employment={user.employment} />
+                    <PieChart /> 
                 </div>
             )}
-            <div className="user-charts">
-                <h2>User Charts</h2>
-                <Dropdown value={selectedChart} options={chartSelectOptions} onChange={(e) => setSelectedChart(e.value)} />
-                <LineChartComponent /> {/* Use the LineChartComponent */}
-            </div>
         </div>
     );
 }
