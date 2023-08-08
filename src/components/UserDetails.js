@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import AddressTable from './AddressTable';
+import EmploymentTable from './EmploymentTable';
 import LineChartComponent from './LineChart';
 import '../styles.css';
 
@@ -32,9 +33,9 @@ function UserDetails() {
                     onClick={() => handleTabClick('address')}
                 />
                 <Button
-                    label="Occupation"
-                    className={activeTab === 'occupation' ? 'p-button-primary active' : 'p-button-secondary'}
-                    onClick={() => handleTabClick('occupation')}
+                    label="Employment"
+                    className={activeTab === 'employment' ? 'p-button-primary active' : 'p-button-secondary'}
+                    onClick={() => handleTabClick('employment')}
                 />
             </div>
             {/* Removed "User Details" tab/content */}
@@ -43,9 +44,9 @@ function UserDetails() {
                     <AddressTable address={user.address} />
                 </div>
             )}
-            {activeTab === 'occupation' && (
+            {activeTab === 'employment' && (
                 <div className="user-tab">
-                    {/* Add occupation content */}
+                    <EmploymentTable employment={user.employment} />
                 </div>
             )}
             <div className="user-charts">
