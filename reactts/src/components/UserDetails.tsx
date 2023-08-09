@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import AddressTable from './AddressTable';
@@ -6,27 +6,37 @@ import EmploymentTable from './EmploymentTable';
 import LineChartComponent from './LineChart';
 import PieChart from './Piechart';
 import '../styles.css';
+import { useSelectedUser } from './SelectedUserContext'; // Import the context hook
 
-interface UserDetailsProps {
-  user: {
-    first_name: string;
-    last_name: string;
-    address: any; // Replace 'any' with the appropriate type for address
-    employment: any; // Replace 'any' with the appropriate type for employment
-  };
-}
-
-function UserDetails(props: UserDetailsProps): JSX.Element {
+function UserDetails(): JSX.Element {
   const { id } = useParams<{ id: string }>();
+  const { selectedUser } = useSelectedUser(); // Get the selected user data from context
   const [activeTab, setActiveTab] = useState<'address' | 'employment'>('address');
+  const [userDetails, setUserDetails] = useState<any>(null);
 
   const handleTabClick = (tab: 'address' | 'employment') => {
     setActiveTab(tab);
   };
 
+  useEffect(() => {
+    // Fetch additional user details based on the selectedUser ID
+    if (selectedUser) {
+      fetch(`https://api.example.com/users/${selectedUser.id}`)
+        .then(response => response.json())
+        .then(data => {
+          setUserDetails(data);
+        })
+        .catch(error => console.error('Error fetching user details:', error));
+    }
+  }, [selectedUser]);
+
+  if (!selectedUser) {
+    return <div>No user selected.</div>;
+  }
+
   return (
     <div className="user-details">
-      <h2>{props.user.first_name} {props.user.last_name}</h2>
+      <h2>{selectedUser.first_name} {selectedUser.last_name}</h2>
       <div className="user-tabs">
         <Button
           label="Address"
@@ -41,7 +51,7 @@ function UserDetails(props: UserDetailsProps): JSX.Element {
       </div>
       {activeTab === 'address' && (
         <div className="user-tab">
-          <AddressTable address={props.user.address} />
+          <AddressTable address={userDetails?.address || selectedUser.address} />
           <div className="line-chart">
             <h3>Line Chart</h3>
             <LineChartComponent />
@@ -50,7 +60,7 @@ function UserDetails(props: UserDetailsProps): JSX.Element {
       )}
       {activeTab === 'employment' && (
         <div className="user-tab">
-          <EmploymentTable employment={props.user.employment} />
+          <EmploymentTable employment={userDetails?.employment || selectedUser.employment} />
           <PieChart />
         </div>
       )}

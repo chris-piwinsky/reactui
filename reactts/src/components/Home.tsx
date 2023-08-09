@@ -8,14 +8,8 @@ import { Paginator } from 'primereact/paginator';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-
-interface TableRow {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  // Add more fields as needed
-}
+import { useSelectedUser } from './SelectedUserContext'; // Import the custom hook
+import { TableRow } from './types';
 
 function HomePage(): JSX.Element {
   const [tableData, setTableData] = useState<TableRow[]>([]);
@@ -23,6 +17,7 @@ function HomePage(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const { setSelectedUser } = useSelectedUser(); // Use the custom hook
 
   useEffect(() => {
     // Fetch data from the API
@@ -50,10 +45,12 @@ function HomePage(): JSX.Element {
       field: 'first_name',
       header: 'First Name',
       body: (rowData: TableRow) => (
-        <Link to={`/user/${rowData.id}`} state={{ user: rowData }}>
+        <Link
+          to={`/user/${rowData.id}`}
+          onClick={() => setSelectedUser(rowData)} // Store the selected user
+        >
           {rowData.first_name} {rowData.last_name}
         </Link>
-
       ),
     },
     { field: 'last_name', header: 'Last Name' },
