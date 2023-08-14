@@ -10,7 +10,7 @@ interface Address {
   zip_code: string;
 }
 
-const DependenciesPanel = (): JSX.Element => {
+const DocumentationPanel = (): JSX.Element => {
   const [addressData1, setAddressData1] = useState([] as Address[]);
   const [addressData2, setAddressData2] = useState([] as Address[]);
   
@@ -70,4 +70,4 @@ const DependenciesPanel = (): JSX.Element => {
   );
 }
 
-export default DependenciesPanel;
+export default DocumentationPanel;

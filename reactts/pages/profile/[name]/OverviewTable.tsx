@@ -11,7 +11,7 @@ interface OverviewTableProps {
   };
 }
 
-const OverviewTable: React.FC<OverviewTableProps> = ({ overviewData }) => {
+const OverviewPanel: React.FC<OverviewTableProps> = ({ overviewData }) => {
   return (
     <div className="p-card p-p-3 p-mb-4" style={{ border: '1px solid #ddd' }}>
       <h3 className="p-text-uppercase p-text-bold p-mb-2" style={{ fontSize: '1.2rem' }}>
@@ -27,4 +27,4 @@ const OverviewTable: React.FC<OverviewTableProps> = ({ overviewData }) => {
   );
 };
 
-export default OverviewTable;
+export default OverviewPanel;

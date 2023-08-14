@@ -4,10 +4,14 @@ import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { TabView, TabPanel } from 'primereact/tabview';
-import AddressTable from './AddressTable';
+import CodePanel from './Code';
 import OverviewTable from './OverviewTable';
-import LineGraphsTab from './LineGraphs';
-import DependenciesTab from './Dependencies'; // Import the new component
+import LineGraphsTab from './Monitor';
+import MonitorPanel from './Monitor';
+import DocumentationPanel from './Documentation';
+import InsightsPanel from './Insights';
+import DependenciesPanel from './Dependencies';
+import ScansPanel from './SecurityScans';
 
 const ProfilePage = (): JSX.Element => {
   const router = useRouter();
@@ -37,9 +41,12 @@ const ProfilePage = (): JSX.Element => {
   };
   
   const tabs = [
-    { label: 'Address', icon: 'pi pi-fw pi-map', content: <AddressTable /> },
-    { label: 'Line Graphs', icon: 'pi pi-fw pi-chart-line', content: <LineGraphsTab lineGraphsData={lineGraphsData} /> },
-    { label: 'Dependencies', icon: 'pi pi-fw pi-share-alt', content: <DependenciesTab /> }, // Add the DependenciesTab component
+    { label: 'Code', icon: 'pi pi-fw pi-map', content: <CodePanel /> },
+    { label: 'Security Scans', icon: 'pi pi-fw pi-map', content: <ScansPanel /> },
+    { label: 'Monitor', icon: 'pi pi-fw pi-chart-line', content: <MonitorPanel lineGraphsData={lineGraphsData} /> },
+    { label: 'Dependencies', icon: 'pi pi-fw pi-share-alt', content: <DependenciesPanel /> },
+    { label: 'Insights', icon: 'pi pi-fw pi-map', content: <InsightsPanel /> },
+    { label: 'Documentation', icon: 'pi pi-fw pi-map', content: <DocumentationPanel /> },
     // Add more tabs as needed
   ];
 

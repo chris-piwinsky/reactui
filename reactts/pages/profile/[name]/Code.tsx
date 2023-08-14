@@ -10,7 +10,7 @@ interface Address {
   zip_code: string;
 }
 
-const AddressTable = (): JSX.Element => {
+const CodePanel = (): JSX.Element => {
   const [addressData, setAddressData] = useState([] as Address[]);
 
   useEffect(() => {
@@ -39,4 +39,4 @@ const AddressTable = (): JSX.Element => {
   );
 }
 
-export default AddressTable;
+export default CodePanel;
