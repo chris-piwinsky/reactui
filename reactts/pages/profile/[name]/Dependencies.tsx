@@ -11,13 +11,23 @@ interface Address {
 }
 
 const AddressTable = (): JSX.Element => {
-  const [addressData, setAddressData] = useState([] as Address[]);
-
+  const [addressData1, setAddressData1] = useState([] as Address[]);
+  const [addressData2, setAddressData2] = useState([] as Address[]);
+  
   useEffect(() => {
     fetch('https://random-data-api.com/api/v2/addresses?size=2&response_type=json')
       .then(response => response.json())
       .then(data => {
-        setAddressData(data);
+        setAddressData1(data);
+      })
+      .catch(error => {
+        console.error('Error fetching address data:', error);
+      });
+
+    fetch('https://random-data-api.com/api/v2/addresses?size=2&response_type=json')
+      .then(response => response.json())
+      .then(data => {
+        setAddressData2(data);
       })
       .catch(error => {
         console.error('Error fetching address data:', error);
@@ -31,20 +41,31 @@ const AddressTable = (): JSX.Element => {
 
   return (
     <div className="address-table-container">
-      <div className="table-column">
-        <DataTable value={addressData}>
-          {addressColumns.map(column => (
-            <Column key={column.field} field={column.field} header={column.header} />
-          ))}
-        </DataTable>
-      </div>
-      <div className="table-column">
-        <DataTable value={addressData}>
-          {addressColumns.map(column => (
-            <Column key={column.field} field={column.field} header={column.header} />
-          ))}
-        </DataTable>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan={2}>Dependencies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <DataTable value={addressData1}>
+                {addressColumns.map(column => (
+                  <Column key={column.field} field={column.field} header={column.header} />
+                ))}
+              </DataTable>
+            </td>
+            <td>
+              <DataTable value={addressData2}>
+                {addressColumns.map(column => (
+                  <Column key={column.field} field={column.field} header={column.header} />
+                ))}
+              </DataTable>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
