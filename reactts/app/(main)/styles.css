@@ -1,0 +1,5 @@
+/* Add this style for the paginator */
+.custom-paginator {
+    display: flex;
+    align-items: center;
+}

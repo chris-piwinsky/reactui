@@ -75,30 +75,29 @@ const HomePage = (): JSX.Element => {
         <div className="main-content">
             <h2>Components</h2>
             <div className="search-bar">
-                <span className="p-input-icon-left">
-                    <i className="pi pi-search" />
+                <div className="p-inputgroup">
+                    <span className="p-inputgroup-addon">
+                        <i className="pi pi-search" />
+                    </span>
                     <InputText
                         type="text"
                         placeholder="Filter by Name or Email"
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                     />
-                </span>
-                <span>
-                    <Paginator
-                        first={startIndex}
-                        rows={itemsPerPage}
-                        totalRecords={totalItems}
-                        onPageChange={onPageChange}
-                    />
-                </span>
-                <span>
                     <Button
                         icon="pi pi-refresh"
                         className="p-button-text"
                         onClick={handleResetSearch}
                     />
-                </span>
+                </div>
+                <Paginator
+                    first={startIndex}
+                    rows={itemsPerPage}
+                    totalRecords={totalItems}
+                    onPageChange={onPageChange}
+                    className="custom-paginator"
+                />
             </div>
 
             <DataTable value={displayedData}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
+import './styles.css'
 
 interface Population {
   data: {
@@ -47,33 +48,32 @@ const MonitorPanel = (): JSX.Element => {
         <div className="p-col">
           <div className="line-graph">
             <h3>Population Over Years</h3>
-            <Chart
-              type="line"
-              data={lineChartData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-              }}
-              style={{ width: '30%' }}
-            />
-            <Chart
-              type="line"
-              data={lineChartData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-              }}
-              style={{ width: '30%' }}
-            />
-            <Chart
-              type="line"
-              data={lineChartData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-              }}
-              style={{ width: '30%' }}
-            />
+            <div className="chart-container">
+              <Chart
+                type="line"
+                data={lineChartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                }}
+              />
+              <Chart
+                type="line"
+                data={lineChartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                }}
+              />
+              <Chart
+                type="line"
+                data={lineChartData}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
